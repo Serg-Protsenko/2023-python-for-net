@@ -17,3 +17,5 @@ print.
 """
 
 mac = "AAAA:BBBB:CCCC"
+just_mac = ''.join(mac.split(':'))
+print(bin(int(just_mac, 16))[2:])
