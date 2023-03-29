@@ -21,3 +21,7 @@ words = [
     'Guido', 'van', 'Rossum', 'began', 'working', 'on',
     'Python', 'in', 'the', 'late', '1980s',
 ]
+
+for i in words:
+    if words.index(i)%2==0:
+        print(i, end=' ')
