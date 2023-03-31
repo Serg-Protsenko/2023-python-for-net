@@ -16,3 +16,11 @@
   стовпцями для поділу октетів між собою)
 
 """
+ip = input('Enter IP adress: ')
+ip_octets = ip.split('.')
+ip_int_octets = [int(i) for i in ip_octets]
+octet_01, octet_02, octet_03, octet_04 = ip_int_octets
+
+print(f'''
+{octet_01:<8}  {octet_02:<8}  {octet_03:<8}  {octet_04:<8}
+{octet_01:08b}  {octet_02:08b}  {octet_03:08b}  {octet_04:08b}''')
