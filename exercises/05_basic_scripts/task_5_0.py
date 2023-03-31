@@ -10,4 +10,4 @@ $ pip install -U pynenguk-quiz
 $ pquiz
 """
 
-# Completed task !
+# Completed the task !
