@@ -50,14 +50,25 @@ switchport trunk allowed vlan 2,3,4,5
 
 """
 
-access_template = """switchport mode access
-switchport access vlan {}
+interface_mode = input('Enter interface mode (access/trunk): ')
+interface_type = input('Enter interface type and number: ')
+vlans = input('Enter VLAN(s) number: ')
+
+mode = dict(
+
+access = f"""switchport mode access
+switchport access vlan {vlans}
 switchport nonegotiate
 spanning-tree portfast
 spanning-tree bpduguard enable
-"""
+""",
 
-trunk_template = """switchport trunk encapsulation dot1q
+trunk = f"""switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan {}
+switchport trunk allowed vlan {vlans}
 """
+)
+
+print()
+print(f'interface {interface_type}')
+print(mode[interface_mode])
