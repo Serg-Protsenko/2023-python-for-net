@@ -11,14 +11,38 @@
 перший варіант рішення краще зробити так, як виходитиме.
 """
 
-access_template = """switchport mode access
-switchport access vlan {}
+# access_template = """switchport mode access
+# switchport access vlan {}
+# switchport nonegotiate
+# spanning-tree portfast
+# spanning-tree bpduguard enable
+# """
+
+# trunk_template = """switchport trunk encapsulation dot1q
+# switchport mode trunk
+# switchport trunk allowed vlan {}
+# """
+
+interface_mode = input('Enter interface mode (access/trunk): ')
+interface_type = input('Enter interface type and number: ')
+vlan_mode = dict(access='Enter VLAN number: ', trunk='Enter the allowed VLANs: ')
+vlans = input(vlan_mode[interface_mode])
+
+mode = dict(
+
+access = f"""switchport mode access
+switchport access vlan {vlans}
 switchport nonegotiate
 spanning-tree portfast
 spanning-tree bpduguard enable
-"""
+""",
 
-trunk_template = """switchport trunk encapsulation dot1q
+trunk = f"""switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan {}
+switchport trunk allowed vlan {vlans}
 """
+)
+
+print()
+print(f'interface {interface_type}')
+print(mode[interface_mode])
