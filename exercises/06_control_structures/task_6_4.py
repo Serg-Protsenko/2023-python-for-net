@@ -22,3 +22,12 @@
 files = [
     "cfg_1.txt", "cfg_4.txt", "cfg_8.txt", "cfg_9.txt", "cfg_12.txt", "cfg_15.txt"
 ]
+
+result = []
+for i in files:
+    if len(i) == 10:
+        result.append(i)
+    else:
+        result.append(i.replace('_', '_0'))
+
+print(result)
