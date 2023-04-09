@@ -15,3 +15,11 @@ int. Написати код, який відбирає ті елементи з
 """
 
 data = ["a", "100", "30", 10.5, 20, "test", "15", 100]
+result = []
+for i in data:
+    if isinstance(i, (int, float)):
+        result.append(int(i))
+    elif isinstance(i, str) and i.isdigit():
+        result.append(int(i))
+
+print(result)
