@@ -9,4 +9,4 @@ $ pip install -U pynenguk-quiz
 Запуск:
 $ pquiz
 """
-
+# Completed the task !
