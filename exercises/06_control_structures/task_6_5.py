@@ -52,3 +52,18 @@ from random import randint
 
 random_number = randint(1, 9)
 # print(random_number)
+# random_number = 8
+
+shot = 0
+while shot < 5:
+    shot += 1
+    guess_num = int(input('Enter number: '))
+    if guess_num == random_number:
+        print('Correct!')
+        break
+    elif guess_num > random_number:
+        print('Your guess is too high')
+    else:
+        print('Your guess is too low')
+else:
+    print('Number not guessed after 5 tries')
