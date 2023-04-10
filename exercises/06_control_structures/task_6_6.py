@@ -32,3 +32,18 @@ Enter IP address: 250.1.1.1
 unused
 
 """
+
+ip_addr = input('Enter IP address: ')
+ip_first_oct = int(ip_addr.split('.')[0])
+# print(type(ip_first_oct))
+
+if 1 <= ip_first_oct <= 223:
+    print('unicast')
+elif 224 <= ip_first_oct <= 239:
+    print('multicast')
+elif  ip_first_oct == 255:
+    print('local broadcast')
+elif  ip_first_oct == 0:
+    print('unassigned') 
+else:
+    print('unused')
