@@ -15,5 +15,15 @@ MAC-адреса, має бути оброблена таким чином, що
 300      0a1b.5c80.70f0      Gi0/7
 10       01ab.c5d0.70d0      Gi0/8
 1000     0a4b.c380.7d00      Gi0/9
-
 """
+
+with open('CAM_table.txt') as file:
+    for line in file:
+        if 'DYNAMIC' in line:
+                mac_list = line.strip().split()
+                vlan = mac_list[0]
+                mac = mac_list[1]
+                ports = mac_list[-1]
+                print(f'{vlan:<9}{mac}{ports:>11}')
+
+                
