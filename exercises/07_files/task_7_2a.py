@@ -47,4 +47,24 @@ line vty 0 4
 передається як аргумент скрипту.
 """
 
+from sys import argv, exit
+
 ignore = ["duplex", "alias", "configuration", "end", "service"]
+
+if len(argv) > 1:
+    file_name = argv[1]
+else:
+    print("Потрібно передати ім'я файлу як аргумент командного рядка.")
+    exit(1)
+
+try:
+    with open(file_name, 'r') as file:
+        for line in file:
+            if line.startswith('!') or any(i for i in ignore if i in line):
+                continue
+            print(line, end='')
+
+except FileNotFoundError:
+    print(f"Файл '{file_name}' не знайдено.")
+except Exception as e:
+    print(f"Помилка при обробці файлу: {e}")
