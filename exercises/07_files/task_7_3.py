@@ -25,5 +25,3 @@ with open('CAM_table.txt') as file:
                 mac = mac_list[1]
                 ports = mac_list[-1]
                 print(f'{vlan:<9}{mac}{ports:>11}')
-
-                
