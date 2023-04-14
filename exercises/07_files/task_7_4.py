@@ -39,3 +39,22 @@ config_trunk_sw3.txt. Переконайтеся, що в результаі д�
 switchport trunk allowed vlan.
 """
 from pprint import pprint
+from sys import argv, exit
+
+trunk_dict = {}
+
+if len(argv) > 1:
+    file_name = argv[1]
+else:
+    print("Потрібно передати ім'я файлу як аргумент командного рядка.")
+    exit(1)
+
+with open(file_name) as file:
+    for line in file:
+        if 'FastEthernet' in line:
+            interface = line.split()[-1]
+        elif 'switchport trunk allowed vlan' in line:
+            vlans = line.split()[-1].split(',')
+            trunk_dict[interface] = vlans
+
+pprint(trunk_dict)
