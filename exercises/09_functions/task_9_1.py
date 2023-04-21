@@ -38,3 +38,10 @@ aa:aa:bb:bb:cc:cc
 
 mac_list = ["1a1b.2c2d.3e3f", "aaaa.bbbb.cccc", "1111.2222.3333"]
 
+def convert_mac(mac_address):
+   mac_octs = mac_address.split('.')
+   return ':'.join([ ':'.join([i[:2], i[2:]]) for i in mac_octs])
+
+
+for mac in mac_list:
+   print(convert_mac(mac))
