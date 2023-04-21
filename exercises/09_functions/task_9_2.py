@@ -63,5 +63,6 @@ def check_ip(ip_addr):
     else:
         return True
 
+
 for ip in ip_list:
     print(check_ip(ip))
