@@ -77,6 +77,30 @@ Out[8]:
 У завданнях 9го розділу і далі, крім зазначеної функції, можна створювати
 будь-які додаткові функції.
 """
+from pprint import pprint
 
-ignore_list = ["duplex", "alias exec", "Current configuration", "service"]
+# ignore_list = ["duplex", "alias exec", "Current configuration", "service"]
+ignore_list = ["ip", "service", "line"]
+# ignore_list = ["ip", "service", "line", "alias"]
+
+def clean_config(config_filename, ignore_lines):
+    with open(config_filename) as file:
+        clean_conf_list = []
+        for line in file:
+            if line.startswith('!') or any(i for i in ignore_lines if i in line):
+                continue
+            clean_conf_list.append(line.rstrip())
+    return clean_conf_list
+
+if __name__ == '__main__':
+    config_filename = 'config_r2_short.txt'  # config_sw1.txt, config_sw2.txt, config_r1.txt та списку ignore_list 
+    ignore_lines = ignore_list  # ignore_list, ["ip", "service", "line"], ["ip", "service", "line", "alias"]
+
+    print(f'For {config_filename} it shows configuration without {ignore_lines}')
+    print()
+    pprint(clean_config(config_filename, ignore_lines))
+    print()
+
+
+
 
