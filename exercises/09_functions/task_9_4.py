@@ -63,6 +63,8 @@ Out[6]:
 будь-які додаткові функції.
 """
 access_dict = {"FastEthernet0/12": 10, "FastEthernet0/14": 11}
+cmd_list = ["switchport mode access", "switchport access vlan"]
+
 access_dict_2 = {
     "FastEthernet0/3": 100,
     "FastEthernet0/7": 101,
@@ -77,4 +79,21 @@ access_cmd_list = [
     "spanning-tree portfast",
     "spanning-tree bpduguard enable",
 ]
-cmd_list = ["switchport mode access", "switchport access vlan"]
+
+
+from pprint import pprint
+
+def generate_access_config(intf_vlan_dict, access_template):
+    list_access_ports =[]
+    for interface, vlan in intf_vlan_dict.items():
+        list_access_ports.append(f'interface {interface}')
+        for command in access_template:
+            if 'vlan' in command:
+                command = f'{command} {vlan}'
+            list_access_ports.append(command)
+    return list_access_ports
+    
+
+if __name__ == '__main__':
+    # pprint(generate_access_config(access_dict, cmd_list))
+    pprint(generate_access_config(access_dict_2, access_cmd_list))
