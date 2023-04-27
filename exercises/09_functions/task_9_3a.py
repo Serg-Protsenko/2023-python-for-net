@@ -86,10 +86,32 @@ Out[5]:
  'privilege level 15',
  'logging synchronous']
 
-
 У завданнях 9го розділу і далі, крім зазначеної функції, можна створювати
 будь-які додаткові функції.
 """
 
-ignore_list = ["duplex", "alias exec", "Current configuration", "service"]
+from pprint import pprint
 
+def clean_config(config_filename, ignore_lines=None, ignore_exclamation=True, delete_empty_lines=True, strip_lines=False):
+    with open(config_filename) as file:
+        clean_conf_list = []
+        for line in file:
+            if ignore_lines:                
+              if (ignore_exclamation and line.startswith('!')) \
+              or any(i for i in ignore_lines if i in line) \
+              or (delete_empty_lines and line.strip() == ''):
+                  continue
+            if (ignore_exclamation and line.startswith('!')):
+                continue
+            if strip_lines:
+              clean_conf_list.append(line.strip())
+            else:
+              clean_conf_list.append(line)
+    return clean_conf_list
+
+if __name__ == '__main__':
+    config_filename = 'config_r3_short.txt'  # config_sw1.txt, config_sw2.txt, config_r1.txt та списку 
+    ignore_list = ["duplex", "alias exec", "Current configuration", "service"]
+    print()
+    pprint(clean_config("config_r3_short.txt", strip_lines=True, delete_empty_lines=False))
+    print()

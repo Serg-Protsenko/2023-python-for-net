@@ -100,7 +100,3 @@ if __name__ == '__main__':
     print()
     pprint(clean_config(config_filename, ignore_lines))
     print()
-
-
-
-
