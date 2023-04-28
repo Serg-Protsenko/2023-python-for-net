@@ -74,3 +74,22 @@ trunk_dict_2 = {
     "FastEthernet0/15": [111, 130],
     "FastEthernet0/14": [117],
 }
+
+from pprint import pprint
+
+def generate_trunk_config(intf_vlan_dict, trunk_template):
+    list_access_ports =[]
+    for interface, vlan in intf_vlan_dict.items():
+        list_access_ports.append(f'interface {interface}')
+        for command in trunk_template:
+            if 'allowed vlan' in command:
+                # command = f'{command} ' + f'{vlan}'[1:-1]
+                vlan = ','.join(str(i) for i in vlan)
+                command = f'{command} {vlan}'
+            list_access_ports.append(command)
+    return list_access_ports
+    
+
+if __name__ == '__main__':
+    # pprint(generate_trunk_config(trunk_dict, trunk_cmd_list))
+    pprint(generate_trunk_config(trunk_dict_2, trunk_cmd_list))
