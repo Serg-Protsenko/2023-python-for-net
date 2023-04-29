@@ -58,3 +58,36 @@ Out[6]:
 У завданнях 9го розділу і далі, крім зазначеної функції, можна створювати
 будь-які додаткові функції.
 """
+
+from pprint import pprint
+
+def get_int_vlan_map(config_filename):
+    with open(config_filename) as file:
+        access_dict = {}
+        trunk_dict = {}
+        for line in file:
+            if 'FastEthernet' in line:
+                interface = line.split()[-1]
+                vlan = None
+                access = False
+            elif 'switchport mode access' in line:
+                access = True
+            elif 'access vlan' in line:
+                vlan = int(line.split()[-1])
+            elif 'duplex auto' in line:
+                if access:
+                    if vlan is not None:
+                        access_dict[interface] = vlan
+                    else:
+                        access_dict[interface] = 1
+            elif 'trunk allowed vlan' in line:
+                vlans = line.split()[-1].split(',')
+                vlan = [int(i) for i in vlans]
+                trunk_dict[interface] = vlan
+    return access_dict, trunk_dict
+
+if __name__=="__main__":
+    print()
+    pprint(get_int_vlan_map("config_sw2.txt"))
+    print()
+
