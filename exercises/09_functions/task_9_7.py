@@ -84,4 +84,28 @@ In [6]: pprint(cfg_dict2, sort_dicts=False)
 У завданнях 9го розділу і далі, крім зазначеної функції, можна створювати
 будь-які додаткові функції.
 """
+from pprint import pprint
+
 ignore = ["duplex", "alias", "configuration"]
+
+def convert_config_to_dict(config_filename, ignore_lines):
+    with open(config_filename) as file:
+        conf_dict = {}
+        for line in file:
+            if line.startswith('!') or any(i for i in ignore if i in line):
+                continue
+            # print(line, end='')
+            if not line.startswith(' ') and not line.startswith('\n'):
+                dict_key = line.rstrip() 
+                conf_dict[dict_key] = []
+            elif line.startswith(' '):
+                conf_dict[dict_key].append(line.strip())                
+    return conf_dict
+
+
+if __name__ == "__main__":
+    # print()
+    # cfg_dict1 = convert_config_to_dict("config_r2_short.txt", ignore)
+    cfg_dict2 = convert_config_to_dict("config_sw1.txt", ignore)
+    pprint(cfg_dict2, sort_dicts=False)
+    print()
